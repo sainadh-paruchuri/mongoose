@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+    <style>
+      .form {
+        /* border: 1px solid black; */
+        width: 50%;
+        margin: auto;
+        padding-left: 3rem;
+        box-shadow: 12px 12px 12px black;
+        background-color: rgb(237, 230, 230);
+        border-radius: 10px;
+      }
+
+      body {
+        background-color: wheat;
+      }
+
+      button {
+        width: 100%;
+        margin: 1.5rem 0px;
+        height: 2rem;
+        border: none;
+        background-color: black;
+        color: white;
+        border-radius: 5px;
+      }
+
+      button:hover {
+        background-color: white;
+        color: black;
+        border: 1px solid black;
+      }
+
+      a {
+        text-decoration: none;
+      }
+
+      .links {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+    </style>
+  </head>
+
+  <body>
+    <section class="Form">
+      <div class="container my-lg-5">
+        <div class="row">
+          <form class="form">
+            <h1>Forgot Password</h1>
+            <div class="col-lg-6">
+              <div class="passwordlink text-center"></div>
+              <div class="form-group">
+                <label for="email" class="form-label">Enter Your Email :</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="useremail"
+                  name="useremail"
+                  autocomplete="on"
+                />
+              </div>
+
+              <button type="submit" id="forgot">Submit</button>
+            </div>
+            <a href="./login.html"><-Back to login</a>
+          </form>
+        </div>
+      </div>
+    </section>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.2/axios.min.js"
+      integrity="sha512-QTnb9BQkG4fBYIt9JGvYmxPpd6TBeKp6lsUrtiVQsrJ9sb33Bn9s0wMQO9qVBFbPX3xHRAsBHvXlcsrnJjExjg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script>
+      document.getElementById("forgot").addEventListener("click", (e) => {
+        e.preventDefault();
+        let email = document.getElementById("useremail").value;
+        console.log(email);
+        try {
+          axios
+            .post("http://localhost:7000/forgotpassword", {
+              useremail: email,
+            })
+            .then((result) => {
+              console.log(result);
+              document.querySelector(".passwordlink").innerHTML = result.data;
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        } catch (err) {
+          alert("something went wrong");
+          console.log(err);
+        }
+      });
+    </script>
+  </body>
+</html>
